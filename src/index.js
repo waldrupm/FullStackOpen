@@ -1,19 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Header = (course) => {
+const Header = ({course}) => {
   return (
     <h1>{course}</h1>
   )
 }
 
-const Part = (part, exercises) => {
+const Part = ({part, exercises}) => {
   return (
     <p>{part} {exercises}</p>
   )
 }
 
-const Content = (part1, exercises1, part2, exercises2, part3, exercises3) => {
+const Content = ({part1, exercises1, part2, exercises2, part3, exercises3}) => {
   return (
     <>
       <Part part={part1} exercises={exercises1} />
@@ -23,7 +23,7 @@ const Content = (part1, exercises1, part2, exercises2, part3, exercises3) => {
   )
 }
 
-const Total = (exercises1, exercises2, exercises3) => {
+const Total = ({exercises1, exercises2, exercises3}) => {
   return (
     <p>Number of exercises { exercises1 + exercises2 + exercises3 }</p>
   )
