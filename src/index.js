@@ -41,6 +41,7 @@ const Statistics = ({good, neutral, bad}) => {
     return (goodScore + badScore) / totalFeedback();
   }
 
+  if(totalFeedback() === 0) return <p>No feedback given.</p>
   return (
     <div>
       <h1>Statistics</h1>
