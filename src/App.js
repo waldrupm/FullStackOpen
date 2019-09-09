@@ -13,7 +13,7 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [filterBy, setFilterBy] = useState('');
 
-  const contactsToShow = showAll ? contacts : contacts.filter(contact => contact.name.toUpperCase.match(filterBy.toUpperCase) !== -1)
+  const contactsToShow = showAll ? contacts : contacts.filter(contact => contact.name.toUpperCase().search(filterBy) !== -1)
 
 
   const rows = () => contactsToShow.map(contact =>
@@ -38,7 +38,7 @@ const App = () => {
   const handleFiltering = (event) => {
     console.log(event.target.value)
     setFilterBy(event.target.value)
-    if(event.target.value !== '') setShowAll(false)
+    setShowAll(false)
     console.log(filterBy);
   }
 
