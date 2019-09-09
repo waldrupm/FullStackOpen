@@ -6,7 +6,7 @@ const App = (props) => {
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
 
-  const notesToShow = showAll ? notes : notes.filter(note => note.important == true)
+  const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
 
 
   const rows = () => notesToShow.map(note =>
