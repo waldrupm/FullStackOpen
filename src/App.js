@@ -13,7 +13,7 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [filterBy, setFilterBy] = useState('');
 
-  const contactsToShow = () => 
+  const contactsToShow =  
     showAll
     ? contacts
     : contacts.filter(
@@ -22,7 +22,7 @@ const App = () => {
       )
 
 
-  const rows = () => contactsToShow().map(contact =>
+  const rows = () => contactsToShow.map(contact =>
     <Contact
       key={contact.name}
       name={contact.name}
