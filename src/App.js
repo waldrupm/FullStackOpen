@@ -13,10 +13,16 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [filterBy, setFilterBy] = useState('');
 
-  const contactsToShow = showAll ? contacts : contacts.filter(contact => contact.name.toUpperCase().search(filterBy) !== -1)
+  const contactsToShow = () => 
+    showAll
+    ? contacts
+    : contacts.filter(
+      contact =>
+        contact.name.toUpperCase().search(filterBy.toUpperCase()) > -1
+      )
 
 
-  const rows = () => contactsToShow.map(contact =>
+  const rows = () => contactsToShow().map(contact =>
     <Contact
       key={contact.name}
       name={contact.name}
@@ -35,7 +41,7 @@ const App = () => {
     console.log(newNumber);
   }
 
-  const handleFiltering = (event) => {
+  const handleFiltering = event => {
     console.log(event.target.value)
     setFilterBy(event.target.value)
     setShowAll(false)
@@ -50,7 +56,7 @@ const App = () => {
 
     let dup = false
     contacts.forEach(contact => {
-      if (contact.name === newName) dup = true
+      if (contact.name === newName) dup = true;
     })
 
     if (!dup) {
