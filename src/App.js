@@ -1,17 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import Contact from './components/Contact'
 
 const App = () => {
-  const [contacts, setContacts] = useState([
-    { name:'Guy Fieri', number: '020-4837473'},
-    { name:'Goron Ramsay', number: '75749483832'},
-    { name:'Mr. Tasty', number: '43-4982839'},
-    { name:'Dude man', number: '11-33-448382'},
-  ]) 
+  const [contacts, setContacts] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [filterBy, setFilterBy] = useState('');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/people')
+      .then(response => {
+        setContacts(response.data)
+      })
+  }, [])
+
 
   const contactsToShow =  
     showAll
