@@ -1,66 +1,55 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Note from './components/Note'
+import Country from './components/Country'
 
 const App = () => {
-  const [notes, setNotes] = useState([]) 
-  const [newNote, setNewNote] = useState('')
+  const [countries, setCountries] = useState([]) 
+  const [findCountry, setFindCountry] = useState('')
   const [showAll, setShowAll] = useState(true)
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/notes')
+      .get('https://restcountries.eu/rest/v2/all')
       .then(response => {
-        setNotes(response.data)
+        setCountries(response.data)
       })
   },[])
 
-  const notesToShow = showAll ? notes : notes.filter(note => note.important === true)
+  const countriesToShow = showAll 
+    ? countries 
+    : countries.filter(country => 
+        country.name.toUpperCase().search(findCountry.toUpperCase()) > -1
+      )
 
 
-  const rows = () => notesToShow.map(note =>
-    <Note
-      key={note.id}
-      note={note}
+  const rows = () => countriesToShow.map(country =>
+    <Country
+      name={country.name}
+      capital={country.capital}
+      population={country.population}
+      languages={country.languages}
+      flag={country.flag}
+      key={country.name}
     />
   )
   
-  const handleNoteChange = (event) => {
+  const handleFindCountryChange = (event) => {
     console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
-
-  const addNote = (event) => {
-    event.preventDefault()
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() > 0.5,
-      id: notes.length + 1,
-    }
-
-    setNotes(notes.concat(noteObject))
-    setNewNote('')
+    setFindCountry(event.target.value)
+    setShowAll(false)
   }
 
   return (
     <div>
-      <h1>Notes</h1>
-      <div>
-        <button onClick={() => setShowAll(!showAll)}>
-          Show {showAll ? 'Only Important' : 'All'}
-        </button>
-      </div>
+      <form>
+        Filter: <input
+          value={findCountry} 
+          onChange={handleFindCountryChange}
+          />
+      </form>
       <ul>
         {rows()}
       </ul>
-      <form onSubmit={addNote}>
-        <input
-          value={newNote} 
-          onChange={handleNoteChange}
-        />
-        <button type="submit">save</button>
-      </form>
     </div>
   )
 }
