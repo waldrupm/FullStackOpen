@@ -65,7 +65,7 @@ const App = () => {
     noteService
       .create(noteObject)
       .then(returnedNote => {
-        setNotes(notes.cocat(returnedNote))
+        setNotes(notes.concat(returnedNote))
         setNewNote('')
       })
   }
